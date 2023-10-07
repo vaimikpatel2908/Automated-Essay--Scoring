@@ -6,6 +6,8 @@ from gensim.models import Word2Vec
 import gensim.models.keyedvectors as word2vec
 import math
 
+nltk.download('stopwords')
+
 def essay_to_wordlist(essay_v, remove_stopwords):
     """Remove the tagged labels and word tokenize the sentence."""
     essay_v = re.sub("[^a-zA-Z]", " ", essay_v)
@@ -29,7 +31,7 @@ def makeFeatureVec(words, model, num_features):
     """Make Feature Vector from the words list of an Essay."""
     featureVec = np.zeros((num_features,),dtype="float32")
     num_words = 0.
-    index2word_set = set(model.wv.index2word)
+    index2word_set = set(model.index_to_key)
     for word in words:
         if word in index2word_set:
             num_words += 1
